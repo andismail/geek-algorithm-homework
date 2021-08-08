@@ -13,8 +13,8 @@ public class LeetCode189 {
     public static void main(String[] args) {
         int[] nums = {1, 2, 3, 4, 5, 6, 7};
         foo(nums, 3);
-        int[] nums1 = {-1, -100, 3, 99};
-        foo(nums1, 2);
+        int[] nums1 = {1, 2};
+        foo(nums1, 3);
 
         for (int num : nums) {
             System.out.print(num + "\t");
@@ -28,6 +28,7 @@ public class LeetCode189 {
 
     private static void foo(int[] nums, int k) {
         int length = nums.length;
+        k = k % length;
 
         reverse(nums, 0, length - 1);
         reverse(nums, 0, k - 1);
