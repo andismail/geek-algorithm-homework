@@ -69,7 +69,7 @@ public class LeetCode88 {
         int p1 = m - 1, p2 = n - 1;
         int tail = m + n - 1;
         int curr;
-        while (p1 > 0 || p2 > 0) {
+        while (p1 >= 0 || p2 >= 0) {
             if (p1 == -1) {
                 curr = nums2[p2--];
             } else if (p2 == -1) {
