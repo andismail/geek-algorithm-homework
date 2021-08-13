@@ -26,4 +26,26 @@ public class LeetCode283 {
             }
         }
     }
+
+    private static void foo1(int[] nums) {
+        int j = 0;
+        for (int i = 0; i < nums.length; i++) {
+            // 如果为0时指针j不变，指针i自增，此时指针j指向的值就是当前数组中第一个0的位置
+            // 接下来就是交互两个元素
+            // 此问题中的特殊情况是数组中都是0或没有0，没有0时指针j、i一直向前跑，都是0时j不变i向前跑
+            if (nums[i] != 0) {
+                if (i == j) {
+                    j++;
+                    continue;
+                }
+
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+
+                j++;
+            }
+        }
+
+    }
 }
