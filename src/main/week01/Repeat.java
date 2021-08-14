@@ -5,6 +5,7 @@ import common.Node;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.jar.JarEntry;
 
 public class Repeat {
 
@@ -79,7 +80,7 @@ public class Repeat {
         int[] sort = new int[m + n];
         int p1 = 0, p2 = 0;
         int curr;
-        while (p1 < nums1.length || p2 < nums2.length) {
+        while (p1 < m || p2 < n) {
             if (p1 == m) {
                 curr = nums2[p2++];
             } else if (p2 == n) {
@@ -112,7 +113,7 @@ public class Repeat {
                 curr = nums2[p2--];
             }
 
-            nums1[tail --] = curr;
+            nums1[tail--] = curr;
         }
     }
 
@@ -137,6 +138,73 @@ public class Repeat {
                 nums[j++] = temp;
             }
         }
-
     }
+
+    private void foo9(int[] nums1, int m, int[] nums2, int n) {
+        int[] sort = new int[m + n];
+        int curr;
+        int p1 = 0, p2 = 0;
+        while (p1 < m || p2 < n) {
+            if (p1 == m) {
+                curr = nums2[p2++];
+            } else if (p2 == n) {
+                curr = nums1[p1++];
+            } else if (nums1[p1] < nums2[p2]) {
+                curr = nums1[p1++];
+            } else {
+                curr = nums2[p2++];
+            }
+
+            sort[p1 + p2 - 1] = curr;
+        }
+
+        for (int i = 0; i < sort.length; i++) {
+            nums1[i] = sort[i];
+        }
+    }
+
+    private void foo10(int[] nums1, int m, int[] nums2, int n) {
+        int tail = m + n - 1;
+        int curr;
+        int p1 = m - 1, p2 = n - 1;
+        while (p1 >= 0 || p2 >= 0) {
+            if (p1 == -1) {
+                curr = nums2[p2--];
+            } else if (p2 == -1) {
+                curr = nums1[p1--];
+            } else if (nums1[p1] > nums2[p2]) {
+                curr = nums1[p1--];
+            } else {
+                curr = nums2[p2--];
+            }
+
+            nums1[tail--] = curr;
+        }
+    }
+
+    private int[] foo11(int[] nums1) {
+        for (int i = 0; i < nums1.length; i++) {
+            for (int j = i; j < nums1.length; j++) {
+                if (nums1[i] == nums1[j]) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private int foo12(int[] nums) {
+        int p = 0, q = 1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[p] != nums[q]) {
+                nums[p + 1] = nums[q];
+                p++;
+            }
+            q++;
+        }
+
+        return p + 1;
+    }
+
 }
