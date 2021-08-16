@@ -5,7 +5,6 @@ import common.Node;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.jar.JarEntry;
 
 public class Repeat {
 
@@ -205,6 +204,24 @@ public class Repeat {
         }
 
         return p + 1;
+    }
+
+    private int[] _66(int[] nums) {
+        // 10
+        // 19
+        for (int i = nums.length - 1; i > -1; i--) {
+            nums[i]++;
+            // 对10取余的值
+            nums[i] %= 10;
+            if (nums[i] != 0) {
+                return nums;
+            }
+        }
+        // 99
+        nums = new int[nums.length + 1];
+        nums[0] = 1;
+
+        return nums;
     }
 
 }
