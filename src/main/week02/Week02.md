@@ -1,3 +1,10 @@
+Homework
+242.有效的字母异位词
+49.异位词分组
+N叉树的前序遍历
+HeapSort ：自学  https://www.geeksforgeeks.org/heap-sort/
+
+
 1.key-value结构工具类，key不能重复，线程不安全，访问的时间复杂度为O(1)
 2.准许key和value为null，当key为null时其hash值为0，
 3.jdk1.8前对于处理哈希冲突的方案是链表，1.8后当链表长度达到阈值时后换成使用红黑树
