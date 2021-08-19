@@ -1,5 +1,6 @@
 package week02;
 
+import common.NTreeNode;
 import common.TreeNode;
 
 import java.util.ArrayList;
@@ -87,5 +88,22 @@ public class Repeat02 {
         foo1(root.right, res);
     }
 
+    public List<Integer> _590(NTreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        bo(root, res);
+        return res;
+    }
 
+    private void bo(NTreeNode root, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+
+        if (root.children != null) {
+            for (NTreeNode child : root.children) {
+                bo(child, res);
+            }
+        }
+        res.add(root.val);
+    }
 }
