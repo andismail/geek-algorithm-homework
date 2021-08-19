@@ -1,23 +1,23 @@
 package common;
 
-public class Node {
+public class ListNode {
 
     public int val;
 
-    public Node next;
+    public ListNode next;
 
-    public Node prev;
+    public ListNode prev;
 
-    public Node(int val) {
+    public ListNode(int val) {
         this.val = val;
     }
 
-    public Node(int val, Node next) {
+    public ListNode(int val, ListNode next) {
         this.val = val;
         this.next = next;
     }
 
-    public Node(int val, Node next, Node prev) {
+    public ListNode(int val, ListNode next, ListNode prev) {
         this.val = val;
         this.next = next;
         this.prev = prev;

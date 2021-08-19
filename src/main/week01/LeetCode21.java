@@ -1,6 +1,6 @@
 package week01;
 
-import common.Node;
+import common.ListNode;
 
 /**
  * 合并两个有序链表
@@ -10,15 +10,15 @@ public class LeetCode21 {
 
     public static void main(String[] args) {
         //l1 = [1,2,4], l2 = [1,3,4]
-        Node l1 = new Node(1);
-        l1.next = new Node(2);
-        l1.next.next = new Node(4);
+        ListNode l1 = new ListNode(1);
+        l1.next = new ListNode(2);
+        l1.next.next = new ListNode(4);
 
-        Node l2 = new Node(1);
-        l2.next = new Node(3);
-        l2.next.next = new Node(4);
+        ListNode l2 = new ListNode(1);
+        l2.next = new ListNode(3);
+        l2.next.next = new ListNode(4);
 
-        Node curr = mergeTwoLists(l1, l2);
+        ListNode curr = mergeTwoLists(l1, l2);
         while (curr != null) {
             System.out.print(curr.val + "\t");
             curr = curr.next;
@@ -26,7 +26,7 @@ public class LeetCode21 {
 
     }
 
-    private static Node mergeTwoLists(Node l1, Node l2) {
+    private static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null) {
             return l2;
         }

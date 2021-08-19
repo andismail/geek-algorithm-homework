@@ -1,6 +1,6 @@
 package week01;
 
-import common.Node;
+import common.ListNode;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -44,7 +44,7 @@ public class Repeat3 {
         }
     }
 
-    public Node _26(Node n1, Node n2) {
+    public ListNode _26(ListNode n1, ListNode n2) {
         if (n1 == null) {
             return n2;
         }
