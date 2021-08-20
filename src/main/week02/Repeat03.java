@@ -17,7 +17,7 @@ import java.util.Map;
  * 590.N叉树的后序遍历
  * N叉树的层序遍历
  */
-public class Reteat03 {
+public class Repeat03 {
     public boolean _242(String s1, String s2) {
         if (s1 == null || s2 == null || s1.length() != s2.length()) {
             return false;
