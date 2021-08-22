@@ -31,6 +31,10 @@ public class LeetCode239 {
 
     /**
      * 双端单调队列
+     * 重点在于：
+     * 1.双端队列
+     * 2.单调队列
+     * 3.存入队列的值为数据下标
      */
     public static int[] f00(int[] nums, int k) {
         if(nums == null || nums.length < 2) return nums;
@@ -46,7 +50,7 @@ public class LeetCode239 {
             }
             // 添加当前值对应的数组下标
             queue.addLast(i);
-            // 判断当前队列中队首的值是否有效
+            // 判断当前队列中队首是否该从窗口中移出
             if(queue.peek() <= i-k){
                 queue.poll();
             }
@@ -58,9 +62,4 @@ public class LeetCode239 {
         return result;
     }
 
-    public static void main(String[] args) {
-        int[] nums = new int[]{1, 3, -1, -3, 5, 3, 6, 7};
-        int k = 3;
-        f00(nums, k);
-    }
 }
