@@ -1,6 +1,9 @@
 package week02;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 242.有效的字母异位词
@@ -42,5 +45,9 @@ public class Repeat05 {
             }
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        List<Set<Integer>> list = new ArrayList<>();
     }
 }
