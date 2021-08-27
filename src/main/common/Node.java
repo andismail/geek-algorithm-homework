@@ -2,15 +2,15 @@ package common;
 
 import java.util.List;
 
-public class NTreeNode {
+public class Node {
     public int val;
-    public List<NTreeNode> children;
+    public List<Node> children;
 
-    public NTreeNode(int val) {
+    public Node(int val) {
         this.val = val;
     }
 
-    public NTreeNode(int val, List<NTreeNode> children) {
+    public Node(int val, List<Node> children) {
         this.val = val;
         this.children = children;
     }

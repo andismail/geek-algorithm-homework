@@ -1,11 +1,14 @@
 package repeat;
 
 import common.ListNode;
-import common.NTreeNode;
+import common.Node;
 import common.TreeNode;
 
 import java.util.*;
 
+/**
+ * 2021-08-24
+ */
 public class Repeat02 {
     /*
     26.删除排序数组中的重复项
@@ -257,38 +260,38 @@ public class Repeat02 {
         foo2(node.right, res);
     }
 
-    public List<Integer> _589(NTreeNode root) {
+    public List<Integer> _589(Node root) {
         List<Integer> res = new ArrayList<>();
         boo1(root, res);
         return res;
     }
 
-    private void boo1(NTreeNode root, List<Integer> res) {
+    private void boo1(Node root, List<Integer> res) {
         if (root == null) {
             return;
         }
 
         res.add(root.val);
         if (root.children != null) {
-            for (NTreeNode child : root.children) {
+            for (Node child : root.children) {
                 boo1(child, res);
             }
         }
     }
 
-    public List<Integer> _590(NTreeNode root) {
+    public List<Integer> _590(Node root) {
         List<Integer> res = new ArrayList<>();
         boo2(root, res);
         return res;
     }
 
-    private void boo2(NTreeNode root, List<Integer> res) {
+    private void boo2(Node root, List<Integer> res) {
         if (root == null) {
             return;
         }
 
         if (root.children != null) {
-            for (NTreeNode child : root.children) {
+            for (Node child : root.children) {
                 boo2(child, res);
             }
         }

@@ -1,6 +1,6 @@
 package week02;
 
-import common.NTreeNode;
+import common.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.List;
  */
 public class LeetCode589 {
 
-    public List<Integer> foo(NTreeNode root) {
+    public List<Integer> foo(Node root) {
         List<Integer> res = new ArrayList<>();
         boo(root, res);
         return res;
     }
 
-    private void boo(NTreeNode node, List<Integer> res) {
+    private void boo(Node node, List<Integer> res) {
         if (node == null) {
             return;
         }
@@ -24,7 +24,7 @@ public class LeetCode589 {
         res.add(node.val);
 
         if (node.children != null) {
-            for (NTreeNode child : node.children) {
+            for (Node child : node.children) {
                 boo(child, res);
             }
         }
