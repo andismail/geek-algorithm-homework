@@ -7,9 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class TreeBFS {
+public class Repeat01 {
 
-    public List<List<Integer>> bfs(TreeNode root) {
+    public List<List<Integer>> dfs(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) {
             return res;
@@ -19,12 +19,11 @@ public class TreeBFS {
         q.add(root);
         while (!q.isEmpty()) {
             int size = q.size();
-            List<Integer> list = new ArrayList<>();
+            List<Integer> path = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 TreeNode node = q.poll();
-                list.add(node.val);
-
-                TreeNode left = root.left, right = root.right;
+                path.add(node.val);
+                TreeNode left = node.left, right = node.right;
                 if (left != null) {
                     q.add(left);
                 }
@@ -32,9 +31,9 @@ public class TreeBFS {
                     q.add(right);
                 }
             }
-            res.add(list);
+            res.add(path);
         }
-
         return res;
     }
+
 }
