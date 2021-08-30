@@ -1,10 +1,351 @@
 package repeat;
 
+import common.ListNode;
+import common.Node;
 import common.TreeNode;
 
 import java.util.*;
 
 public class Repeat04 {
+
+    /**
+     * 26.删除排序数组中的重复项
+     */
+    public int _26(int[] nums) {
+        int p1 = 0, p2 = 1;
+        while (p2 < nums.length) {
+            if (nums[p1] != nums[p2]) {
+                if (p2 - p1 == 1) {
+                    p1++;
+                    p2++;
+                    continue;
+                }
+
+                nums[p1 + 1] = nums[p2];
+                p1++;
+            }
+            p2++;
+        }
+        return nums.length == 0 ? 0 : p1 + 1;
+    }
+
+    /**
+     * 189.旋转数组
+     */
+    public void _189(int[] nums, int k) {
+        k = k % nums.length;
+        f_189(nums, 0, nums.length - 1);
+        f_189(nums, k, nums.length - 1);
+        f_189(nums, 0, k - 1);
+    }
+
+    private void f_189(int[] nums, int s, int e) {
+        while (s < e) {
+            int temp = nums[s];
+            nums[s] = nums[e];
+            nums[e] = temp;
+            s++;
+            e--;
+        }
+    }
+
+    /**
+     * 21.合并两个有序链表（升序）
+     */
+    public ListNode _21(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+
+        if (l1.val < l2.val) {
+            l1.next = _21(l1.next, l2);
+            return l1;
+        }
+
+        l2.next = _21(l1, l2.next);
+        return l2;
+    }
+
+    /**
+     * 88.合并两个有序数组（非递减顺序）
+     */
+    public void _88(int[] nums1, int m, int[] nums2, int n) {
+        int tail = m + n - 1;
+        int curr;
+        int p = m - 1, q = n - 1;
+        while (p > -1 || q > -1) {
+            if (p == -1) {
+                curr = nums2[q--];
+            } else if (q == -1) {
+                curr = nums1[p--];
+            } else if (nums1[p] > nums2[q]) {
+                curr = nums1[p--];
+            } else {
+                curr = nums2[q--];
+            }
+            nums1[tail--] = curr;
+        }
+    }
+
+    /**
+     * 1.两数之和
+     */
+    public int[] _1(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(target - nums[i])) {
+                return new int[]{i, map.get(target - nums[i])};
+            }
+            map.put(nums[i], i);
+        }
+        return null;
+    }
+
+    /**
+     * 283.移动零
+     */
+    public void _283(int[] nums) {
+        int p = 0, q = 0;
+        while (q < nums.length) {
+            if (nums[q] != 0) {
+                if (p == q) {
+                    p++;
+                    q++;
+                    continue;
+                }
+
+                nums[p] = nums[q];
+                nums[q] = 0;
+                p++;
+            }
+            q++;
+        }
+    }
+
+    /**
+     * 66.加一
+     */
+    public int[] _66(int[] digits) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            digits[i]++;
+            digits[i] %= 10;
+            if (digits[i] != 0) {
+                return digits;
+            }
+        }
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
+    }
+
+    /**
+     * 242.有效的字母异位词
+     */
+    public boolean _242(String s1, String s2) {
+        if (s1 == null || s2 == null || s1.length() != s2.length()) {
+            return false;
+        }
+
+        int[] letterCnt = new int[26];
+        for (int i = 0; i < s1.length(); i++) {
+            letterCnt[s1.charAt(i) - 'a']++;
+            letterCnt[s2.charAt(i) - 'a']--;
+        }
+
+        for (int cnt : letterCnt) {
+            if (cnt != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 49.异位词分组
+     */
+    public List<List<String>> _49(String[] strs) {
+        Map<Double, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            double key = calc(str);
+            List<String> list = map.computeIfAbsent(key, v -> new ArrayList<>());
+            list.add(str);
+        }
+
+        List<List<String>> res = new ArrayList<>();
+        for (Double key : map.keySet()) {
+            res.add(map.get(key));
+        }
+        return res;
+    }
+
+    private double calc(String str) {
+        int[] x = new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 39, 41, 43, 47, 49, 51, 53, 57, 61, 67, 71, 73, 79, 83, 87, 89, 91, 97, 101, 103};
+
+        double y = 1;
+        for (int i = 0; i < str.length(); i++) {
+            y *= x[str.charAt(i) - 'a'];
+        }
+        return y;
+    }
+
+    /**
+     * 94.二叉树的中序遍历
+     */
+    private void f_94(TreeNode node, List<Integer> res) {
+        if (node == null) {
+            return;
+        }
+
+        f_94(node.left, res);
+        res.add(node.val);
+        f_94(node.right, res);
+    }
+
+    /**
+     * 144.二叉树的前序遍历
+     */
+    public List<Integer> _144(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        f_144(root, res);
+        return res;
+    }
+
+    private void f_144(TreeNode node, List<Integer> res) {
+        if (node == null) {
+            return;
+        }
+
+        res.add(node.val);
+        f_144(node.left, res);
+        f_144(node.right, res);
+    }
+
+    /**
+     * 589.N叉树的前序遍历
+     */
+    private void f_589(Node node, List<Integer> res) {
+        if (node == null) {
+            return;
+        }
+
+        res.add(node.val);
+        if (node.children != null) {
+            for (Node child : node.children) {
+                f_589(child, res);
+            }
+        }
+    }
+
+    /**
+     * 590.N叉树的后序遍历
+     */
+    public List<Integer> _590(Node root) {
+        List<Integer> res = new ArrayList<>();
+        f_590(root, res);
+        return res;
+    }
+
+    private void f_590(Node node, List<Integer> res) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.children != null) {
+            for (Node child : node.children) {
+                f_590(child, res);
+            }
+        }
+        res.add(node.val);
+    }
+
+    /**
+     * *40.最小的k个数
+     */
+    public int[] _40(int[] nums, int k) {
+        Queue<Integer> q = new PriorityQueue<>();
+        for (int num : nums) {
+            q.add(num);
+        }
+        int[] res = new int[k];
+        for (int i = 0; i < res.length; i++) {
+            res[i] = q.poll();
+        }
+        return res;
+    }
+
+    /**
+     * *239.滑动窗口最大值
+     */
+    public int[] _239(int[] nums, int k) {
+        if (nums == null || nums.length < 2) {
+            return nums;
+        }
+        int[] res = new int[nums.length - k + 1];
+        LinkedList<Integer> q = new LinkedList<>();
+        for (int i = 0; i < nums.length; i++) {
+            while (!q.isEmpty() && nums[i] > nums[q.peekLast()]) {
+                q.removeLast();
+            }
+            q.addLast(i);
+
+            if (i - q.peekFirst() == k) {
+                q.removeFirst();
+            }
+
+            if (i >= k - 1) {
+                res[i - k + 1] = q.peekFirst();
+            }
+        }
+        return res;
+    }
+
+    /**
+     * *347.前K个高频元素
+     */
+    public int[] _347(int[] nums, int k) {
+        Map<Integer, Integer> counter = new HashMap<>();
+        for (int num : nums) {
+            Integer cnt = counter.computeIfAbsent(num, v -> 0);
+            counter.put(num, cnt + 1);
+        }
+
+        Queue<Integer> q = new PriorityQueue<>((o1, o2) -> counter.get(o2) - counter.get(o1));
+        for (Integer num : counter.keySet()) {
+            q.add(num);
+        }
+
+        int[] res = new int[k];
+        for (int i = 0; i < res.length; i++) {
+            res[i] = q.poll();
+        }
+        return res;
+    }
+
+    /**
+     * *77.组合
+     */
+    public List<List<Integer>> _77(int n, int k) {
+        List<List<Integer>> res = new ArrayList<>();
+        Deque<Integer> path = new ArrayDeque<>();
+        f_77(n, k, 1, path, res);
+        return res;
+    }
+
+    private void f_77(int n, int k, int begin, Deque<Integer> path, List<List<Integer>> res) {
+        if (path.size() == k) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+
+        for (int i = begin; i <= n - (k - path.size()) + 1; i++) {
+            path.add(i);
+            f_77(n, k, i + 1, path, res);
+            path.removeLast();
+        }
+    }
 
     /**
      * 70.爬楼梯
