@@ -626,6 +626,231 @@ public class Repeat04 {
             path.removeLast();
         }
     }
+
+    /**
+     * 102.二叉树的层序遍历
+     */
+    public List<List<Integer>> _102(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        List<List<Integer>> res = new ArrayList<>();
+        Queue<TreeNode> path = new ArrayDeque<>();
+        path.add(root);
+        while (!path.isEmpty()) {
+            int size = path.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = path.poll();
+                list.add(node.val);
+                TreeNode left = node.left;
+                if (left != null) {
+                    path.add(left);
+                }
+                TreeNode right = node.right;
+                if (right != null) {
+                    path.add(right);
+                }
+            }
+            res.add(list);
+        }
+        return res;
+    }
+
+    /**
+     * 433.最小基因变化
+     */
+
+    /**
+     * 515.在每个树行中找最大值
+     */
+    public List<Integer> _515(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        List<Integer> res = new ArrayList<>();
+        Queue<TreeNode> path = new ArrayDeque<>();
+        path.add(root);
+        while (!path.isEmpty()) {
+            int size = path.size();
+            Integer max = null;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = path.poll();
+                max = max == null ? node.val : Math.max(max, node.val);
+                TreeNode left = node.left;
+                if (left != null) {
+                    path.add(left);
+                }
+                TreeNode right = node.right;
+                if (right != null) {
+                    path.add(right);
+                }
+            }
+            res.add(max);
+        }
+        return res;
+    }
+
+    /** 200.岛屿数量
+     * 322.零钱兑换
+     */
+
+    /**
+     * 455.饼干分发问题
+     */
+    public int _455(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int count = 0, start = 0;
+        for (int i = 0; i < s.length && start < g.length; i++) {
+            if (s[i] >= g[start]) {
+                count++;
+                start++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 122.买卖股票的最佳时机II
+     */
+    public int _122(int[] prices) {
+        if (prices == null || prices.length < 2) {
+            return 0;
+        }
+
+        int res = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i - 1]) {
+                res += prices[i] - prices[i - 1];
+            }
+        }
+        return res;
+    }
+
+    /**
+     * 55.跳跃游戏
+     */
+    public boolean _55(int[] nums) {
+
+        return false;
+    }
+
+    /**
+     * 69.x的平方根
+     */
+    public int _69_1(int x) {
+        long r = x;
+        while (r * r > x) {
+            r = (r + x / r) / 2;
+        }
+        return (int) r;
+    }
+
+    public int _69_2(int x) {
+        if (x == 1) return 1;
+        int left = 1, right = x, ans = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (mid <= x / mid) {
+                ans = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 33.搜索旋转排序数组
+     */
+    public int _33(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[right] < nums[mid]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        int root = left;
+        left = 0;
+        right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int realMid = (mid + root) % nums.length;
+            if (nums[realMid] == target) {
+                return realMid;
+            }
+            if (target > nums[mid]) {
+                left = mid + 1;
+            } else {
+                right = mid -1;
+            }
+        }
+        return -1;
+    }
+
+    public int search(int[] A, int target) {
+        int n = A.length;
+        int lo = 0, hi = n - 1;
+        while (lo < hi) {
+            int mid = (lo + hi) / 2;
+            if (A[mid] > A[hi]) lo = mid + 1;
+            else hi = mid;
+        }
+        int rot = lo;
+        lo = 0;
+        hi = n - 1;
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
+            int realmid = (mid + rot) % n;
+            if (A[realmid] == target) return realmid;
+            if (A[realmid] < target) lo = mid + 1;
+            else hi = mid - 1;
+        }
+        return -1;
+    }
+
+    /**
+     * 74.搜索二维矩阵
+     */
+    public boolean _74(int[][] nums, int target) {
+        for (int i = nums.length - 1; i >= 0; i++) {
+            for (int j = 0; j < nums[0].length; j++) {
+                if (target < nums[i][j]) {
+                    break;
+                }
+                if (target > nums[i][j]) {
+                    continue;
+                }
+                if (target == nums[i][j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 153.寻找旋转排序数组中的最小值
+     */
+    public int _153(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[right] < nums[mid]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
 }
 
 
