@@ -31,7 +31,7 @@ public class JavaHashMap {
     private int local(Object key, int tableSize) {
         // tableSize为数组长度，因为tableSize()计算出来值总是2的n次方
         // 所以下方运算实际相当于求余数，也就是余数就是这个key所在的数组的下标
-        return hash(key) & tableSize;
+        return hash(key) & (tableSize - 1);
     }
 
     public static void main(String[] args) {
