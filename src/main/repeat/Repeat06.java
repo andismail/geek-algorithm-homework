@@ -460,13 +460,44 @@ public class Repeat06 {
     /**
      * 297.二叉树的序列化与反序列化
      */
-    public List<Integer> _297_ser(TreeNode root) {
+    public String _297_ser(TreeNode root) {
         // 前序遍历
-        return null;
+        List<String> res = new ArrayList<>();
+        f_297_ser(root, res);
+        StringBuilder strs = new StringBuilder();
+        for (String str : res) {
+            strs.append(str).append(",");
+        }
+        return strs.toString();
     }
 
-    public TreeNode _297_de() {
-        return null;
+    private void f_297_ser(TreeNode node, List<String> res) {
+        if (node == null) {
+            res.add("None");
+            return;
+        }
+        res.add(String.valueOf(node.val));
+        f_297_ser(node.left, res);
+        f_297_ser(node.right, res);
+    }
+
+    public TreeNode _297_de(String str) {
+        String[] strs = str.split(",");
+        return f_297_de(new LinkedList<>(Arrays.asList(strs)));
+    }
+
+    private TreeNode f_297_de(List<String> list) {
+        String str = list.get(0);
+        if ("None".equals(str) || "".equals(str) || str == null) {
+            list.remove(0);
+            return null;
+        }
+
+        TreeNode node = new TreeNode(Integer.parseInt(str));
+        list.remove(0);
+        node.left = f_297_de(list);
+        node.right = f_297_de(list);
+        return node;
     }
 
     /**
@@ -613,6 +644,276 @@ public class Repeat06 {
         }
     }
 
+    /**
+     * 102.二叉树的层序遍历
+     */
+    public List<List<Integer>> _102(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        List<List<Integer>> res = new ArrayList<>();
+        Deque<TreeNode> q = new ArrayDeque<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+                list.add(node.val);
+                TreeNode left = node.left, right = node.right;
+                if (left != null) {
+                    q.add(left);
+                }
+                if (right != null) {
+                    q.add(right);
+                }
+            }
+            res.add(list);
+        }
+        return res;
+    }
+
+    /**
+     * 103.二叉树的锯齿形层序遍历
+     */
+    public List<List<Integer>> _103(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        List<List<Integer>> res = new ArrayList<>();
+        Deque<TreeNode> q = new ArrayDeque<>();
+        q.add(root);
+        boolean flag = true;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            Deque<Integer> queue = new ArrayDeque<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+                if (flag) {
+                    queue.addLast(node.val);
+                } else {
+                    queue.addFirst(node.val);
+                }
+
+                TreeNode left = node.left, right = node.right;
+                if (left != null) {
+                    q.add(left);
+                }
+                if (right != null) {
+                    q.add(right);
+                }
+            }
+            flag = !flag;
+            res.add(new ArrayList<>(queue));
+        }
+        return res;
+    }
+
+    /**
+     * 433.最小基因变化
+     */
+
+    /**
+     * 515.在每个树行中找最大值
+     */
+    public List<Integer> _515(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        List<Integer> res = new ArrayList<>();
+        Deque<TreeNode> q = new ArrayDeque<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            int max = 0;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+                max = Math.max(node.val, max);
+                TreeNode left = node.left, right = node.right;
+                if (left != null) {
+                    q.add(left);
+                }
+                if (right != null) {
+                    q.add(right);
+                }
+            }
+            res.add(max);
+        }
+        return res;
+    }
+
+    /**
+     * 200.岛屿数量
+     * 322.零钱兑换
+     */
+
+    /**
+     * 455.饼干分发问题
+     */
+    public int _455(int[] s, int[] g) {
+        Arrays.sort(s);
+        Arrays.sort(g);
+        int start = 0, cnt = 0;
+        for (int i = 0; i < s.length && start < g.length; i++) {
+            if (s[i] >= g[start]) {
+                start++;
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
+    /**
+     * 122.买卖股票的最佳时机II
+     */
+    public int _122(int[] prices) {
+        int pre = prices[0], sum = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > pre) {
+                sum += prices[i] - pre;
+            }
+            pre = prices[i];
+        }
+        return sum;
+    }
+
+    /**
+     * 55.跳跃游戏
+     */
+    public boolean _55(int[] nums) {
+        int max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i >= max) {
+                max = Math.max(max, i + nums[i]);
+            }
+            if (max >= nums.length - 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 69.x的平方根
+     */
+    public int _69(int x) {
+        long r = x;
+        while (r * r > x) {
+            r = (r + x / r) / 2;
+        }
+        return (int) r;
+    }
+
+    public int _69_1(int x) {
+        if (x < 2) {
+            return x;
+        }
+
+        int left = 1, right = x, ans = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (mid <= x / mid) {
+                ans = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 33.搜索旋转排序数组
+     */
+    public int _33(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        int root = left;
+        left = 0;
+        right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int res = (root + mid) % nums.length;
+            if (nums[res] == target) {
+                return res;
+            }
+            if (nums[res] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 74.搜索二维矩阵
+     */
+    public boolean _74(int[][] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = nums[0].length - 1; j > 0; j--) {
+                int val = nums[i][j];
+                if (val == target) {
+                    return true;
+                }
+                if (val > target) {
+                    break;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 153.寻找旋转排序数组中的最小值
+     */
+    public int _153(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+
+    /**
+     * 136.只出现一次的数字
+     */
+    public int _136(int[] nums) {
+        int res = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            res ^= nums[i];
+        }
+        return res;
+    }
+
+    /**
+     * 10.斐波那契数列
+     */
+    public int _10(int n) {
+        // f(n) = f(n - 1) + f(n -2)
+        int a = 0, b = 1, sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum = (a + b) % 1000000007;
+            a = b;
+            b = sum;
+        }
+        return a;
+    }
 }
 
 
