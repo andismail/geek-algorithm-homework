@@ -8,16 +8,29 @@ package week01;
  */
 public class SortInsert {
 
-    public int[] foo(int[] nums) {
+    public static int[] foo(int[] nums) {
+        // 不是从0开始遍历，是因为下边要使用后一个元素和前一个进行比较
         for (int i = 1; i < nums.length; i++) {
+            // 循环不变量，第二层循环就是和这个值进行比较，这个值在当前外层循环中没有发生过变化
             int temp = nums[i];
+            // 用于标记内层循环比较的开始位置
             int j = i;
+            // 使用内层循环和外层这个循环不变量进行比较，
             while (j > 0 && nums[j - 1] > temp) {
+                // 如果前其前一个元素小于循环不变量，则开始循环，把前一个元素后移
                 nums[j] = nums[j - 1];
+                // 重复此循环中内容
                 j--;
             }
+            // 内层循环退出时需要此操作
             nums[j] = temp;
         }
         return nums;
     }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{3, 4, 6, 2, 1, 5};
+        foo(nums);
+    }
+
 }

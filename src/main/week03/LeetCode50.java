@@ -61,4 +61,10 @@ public class LeetCode50 {
         return n % 2 == 0 ? y * y : x * y * y;
     }
 
+    public static void main(String[] args) {
+        LeetCode50 l = new LeetCode50();
+        System.out.println(l.myPow(2, 32)/2);
+        System.out.println(l.myPow(2, 31));
+        System.out.println(Long.MAX_VALUE);
+    }
 }
